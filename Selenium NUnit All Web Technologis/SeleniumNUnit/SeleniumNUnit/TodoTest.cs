@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
@@ -9,7 +10,8 @@ using SeleniumExtras.WaitHelpers;
 
 namespace SeleniumNUnitAllWebTechnologies
 {
-    [TestFixture]
+    //[TestFixture]
+    [TestClass]
     public class TodoTest
     {
         private const int WAIT_FOR_ELEMENT_TIMEOUT = 30;
@@ -17,22 +19,27 @@ namespace SeleniumNUnitAllWebTechnologies
         private WebDriverWait _webDriverWait;
         private Actions _actions;
 
-        [SetUp]
+        //[SetUp]
+        [TestInitialize]
         public void TestInit()
         {
-            _driver = new ChromeDriver();
+            var options = new ChromeOptions();
+            options.AddArguments("headless");
+            _driver = new ChromeDriver(options);
             _driver.Manage().Window.Maximize();
             _webDriverWait = new WebDriverWait(_driver, TimeSpan.FromSeconds(WAIT_FOR_ELEMENT_TIMEOUT));
             _actions = new Actions(_driver);
         }
 
-        [TearDown]
+        //[TearDown]
+        [TestCleanup]
         public void TestCleanup()
         {
             _driver.Quit();
         }
 
-        [Test]
+        [TestMethod]
+        //[Test]
         public void OpenMainEShopPage()
         {
             _driver.Navigate().GoToUrl("https://test.oleksandrmarkov.tech/");
