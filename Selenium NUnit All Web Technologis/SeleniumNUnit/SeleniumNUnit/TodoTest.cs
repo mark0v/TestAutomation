@@ -7,11 +7,13 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
+using WebDriverManager;
+using WebDriverManager.DriverConfigs.Impl;
 
 namespace SeleniumNUnitAllWebTechnologies
 {
-    //[TestFixture]
-    [TestClass]
+    [TestFixture]
+    //[TestClass]
     public class TodoTest
     {
         private const int WAIT_FOR_ELEMENT_TIMEOUT = 30;
@@ -19,10 +21,11 @@ namespace SeleniumNUnitAllWebTechnologies
         private WebDriverWait _webDriverWait;
         private Actions _actions;
 
-        //[SetUp]
-        [TestInitialize]
+        [SetUp]
+        //[TestInitialize]
         public void TestInit()
         {
+            new DriverManager().SetUpDriver(new ChromeConfig());
             var options = new ChromeOptions();
             options.AddArguments("headless");
             _driver = new ChromeDriver(options);
@@ -31,15 +34,15 @@ namespace SeleniumNUnitAllWebTechnologies
             _actions = new Actions(_driver);
         }
 
-        //[TearDown]
-        [TestCleanup]
+        [TearDown]
+        //[TestCleanup]
         public void TestCleanup()
         {
             _driver.Quit();
         }
 
-        [TestMethod]
-        //[Test]
+        //[TestMethod]
+        [Test]
         public void OpenMainEShopPage()
         {
             _driver.Navigate().GoToUrl("https://test.oleksandrmarkov.tech/");
