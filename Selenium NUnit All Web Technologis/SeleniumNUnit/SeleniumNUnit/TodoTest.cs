@@ -46,7 +46,8 @@ namespace SeleniumNUnitAllWebTechnologies
         public void OpenMainEShopPage()
         {
             _driver.Navigate().GoToUrl("https://test.oleksandrmarkov.tech/");
-
+            string email = _driver.FindElement(By.XPath("//*[@id='masthead']/div[1]/div/div[1]/div/div[2]/div[2]/span")).Text;
+            NUnit.Framework.Assert.AreEqual("example@youremail.com", email);
 
         }
 
